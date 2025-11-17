@@ -36,7 +36,7 @@ export default function Register() {
     setError(null);
     
     try {
-      const response = await fetch('http://localhost:7000/api/v1/auth/signup', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/user/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
