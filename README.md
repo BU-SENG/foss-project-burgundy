@@ -70,7 +70,7 @@ Provide a tool that can be used casually and safely for daily emotional self-car
    npm run dev
 
 ## Tech Stack
-- React, Node.js, MongoDB, etc.
+- React, Node.js, MongoDB, etc...
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md)
