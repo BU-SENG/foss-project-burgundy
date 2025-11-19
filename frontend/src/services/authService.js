@@ -11,3 +11,15 @@ export async function registerUser({ username, email, password }) {
         throw new Error('Network error or CORS issue.');
     }
 }
+export async function loginUser({ email, password }) {
+    try {
+        const response = await api.post('/auth/user/login', { email, password });
+        return response.data; // expected to return { user, token }
+    } catch (error) {
+        console.log('login failed', error)
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message || 'Login failed.');
+        }
+        throw new Error('Network error or CORS issue.');
+    }
+}
