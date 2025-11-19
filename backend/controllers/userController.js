@@ -3,6 +3,25 @@ const { getDB } = require('../config/config');
 const AppError = require('../error/appError');
 const catchAsync = require('../error/catchAsync');
 
+const profile = catchAsync(async (req, res, next) => {
+    const db = getDB();
+    const users = db.collection('users');
+
+    const user = await users.findOne(
+        { _id: new ObjectId(req.user._id) },
+        { projection: { password: 0 } } // exclude password field
+    );
+
+    if (!user) {
+        return next(new AppError('User not found.', 404));
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: { user }
+    });
+})
+
 const selectFeeling = catchAsync(async (req, res, next) => {
     const db = getDB();
     const users = db.collection('users');
@@ -212,6 +231,7 @@ const getPendingRequests = catchAsync(async (req, res, next) => {
 });
 
 module.exports = {
+    profile,
     selectFeeling,
     getAllUsers,
     sendRequest,
