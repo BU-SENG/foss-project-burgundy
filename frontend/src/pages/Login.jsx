@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/authService';
-import { toast } from 'sonner';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
+import { toast } from "sonner";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -17,19 +17,20 @@ export default function Login() {
     if (isSubmitting) return;
 
     if (!formData.email || !formData.password) {
-      toast.error('Please fill in all fields.');
+      toast.error("Please fill in all fields.");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const user = await loginUser(formData);
-      toast.success('Login successful! Redirecting...');
-      localStorage.setItem('token', user.token);
-      setTimeout(() => navigate('/mood'), 1000);
+      const res = await loginUser(formData);
+      const { token } = res.data; // only token needed here
+      toast.success("Login successful! Redirecting...");
+      localStorage.setItem("token", token);
+      setTimeout(() => navigate("/mood"), 1000);
     } catch (err) {
-      toast.error(err.message || 'Login failed');
+      toast.error(err.message || "Login failed");
     } finally {
       setIsSubmitting(false);
     }
@@ -37,7 +38,10 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
-      <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md bg-gray-800 p-6 rounded-xl">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 w-full max-w-md bg-gray-800 p-6 rounded-xl"
+      >
         <h2 className="text-2xl text-white font-bold text-center">Login</h2>
         <input
           id="email"
@@ -62,7 +66,7 @@ export default function Login() {
           disabled={isSubmitting}
           className="w-full py-4 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-500 transition"
         >
-          {isSubmitting ? 'Logging in...' : 'Login'}
+          {isSubmitting ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>
