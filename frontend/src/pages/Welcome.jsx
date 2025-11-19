@@ -47,7 +47,7 @@ export default function Welcome() {
             </a>
             
             <a
-              href="#"
+              href="/login"
               className="w-full rounded-full border border-white/40 bg-transparent px-4 py-3 text-center text-base font-semibold text-white shadow-lg hover:bg-white/10  focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Log In

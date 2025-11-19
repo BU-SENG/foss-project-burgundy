@@ -6,6 +6,7 @@ import FriendsList from "./pages/FriendsList";
 import FriendRequests from "./pages/FriendRequest";
 import Chat from "./pages/Chat";
 import MoodDashboard from "./pages/MoodDashboard";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/requests" element={<FriendRequests />} />
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/dashboard" element={<MoodDashboard />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

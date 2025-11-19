@@ -36,19 +36,21 @@ export default function Register() {
     setError(null);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/user/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password
-        }),
-      });
+      // 🛑 CRITICAL FIX: Changed endpoint path from /auth/user/register to /auth/signup
+     const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/user/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+    }),
+});
 
       const data = await response.json();
 
       if (!response.ok || data.status === 'error') {
+        // If the server returns an error (e.g., email already exists)
         throw new Error(data.message || 'Registration failed due to server error.');
       }
 
@@ -58,7 +60,8 @@ export default function Register() {
 
     } catch (err) {
       console.error("Registration Error:", err);
-      setError(err.message || "Network error. Is the server running?");
+      // Display a clearer error message if the fetch failed (e.g., server offline)
+      setError(err.message || "Could not connect to the API. Check your network or server status.");
       
     } finally {
       setIsSubmitting(false);
@@ -101,34 +104,35 @@ export default function Register() {
           <section className="space-y-6">
             <h2 className="text-4xl font-extrabold text-white tracking-tight">Create Your Safe Space</h2>
             
-            {/* Input Fields (Simplified with Placeholders) */}
-            
+            {/* Username Input */}
             <input
               type="text" 
               id="username"
               value={formData.username}
               onChange={handleChange}
-              placeholder=" Username" // Placeholder icon added
+              placeholder=" Username" 
               required
               className="w-full p-4 rounded-xl bg-gray-800/60 text-white placeholder-gray-400 border border-indigo-500/30 backdrop-blur-sm focus:ring-indigo-500 focus:border-indigo-500 transition-all"
             />
 
+            {/* Email Input */}
             <input
               type="email"
               id="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder=" Email" // Placeholder icon added
+              placeholder="Email" 
               required
               className="w-full p-4 rounded-xl bg-gray-800/60 text-white placeholder-gray-400 border border-indigo-500/30 backdrop-blur-sm focus:ring-indigo-500 focus:border-indigo-500 transition-all"
             />
 
+            {/* Password Input */}
             <input
               type="password"
               id="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder=" Password" // Placeholder icon added
+              placeholder="Password" 
               required
               className="w-full p-4 rounded-xl bg-gray-800/60 text-white placeholder-gray-400 border border-indigo-500/30 backdrop-blur-sm focus:ring-indigo-500 focus:border-indigo-500 transition-all"
             />
