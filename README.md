@@ -27,6 +27,105 @@ The system uses sentiment analysis to detect emotional patterns in conversations
 ## Tech Stack
 - React, Node.js, MongoDB, etc.
 
+## System Architecture
+
+<details>
+<summary>1.0 Introduction</summary>
+
+This document describes the system architecture of **Empathy Buddy**, an AI-powered mood‑matching chat application.  
+The architecture focuses on how the system enables anonymous emotional support through mood-based matching, AI fallback, and sentiment analysis.
+
+</details>
+
+<details>
+<summary>2.0 High-Level Architecture Overview</summary>
+
+Empathy Buddy uses a **client–server architecture** supported by real-time communication, AI-driven sentiment analysis, and dual-database storage. Major layers:
+
+### Frontend Layer (React + Tailwind CSS)
+- Anonymous login screen  
+- Mood selection interface (emoji-based)  
+- Chat interface for real-time messaging  
+- Optional mood dashboard (Chart.js or similar)
+
+### Backend Layer (Node.js + Express.js)
+- API endpoints for authentication, mood tracking, message processing  
+- Real-time communication using Socket.io  
+- Handles user matching logic  
+- Connects to AI services for sentiment analysis and fallback chat
+
+### AI/NLP Layer (Hugging Face Transformers)
+- Sentiment analysis using models like *distilbert-base-uncased-finetuned-sst-2-english*  
+- Generates emotional classification (positive, negative, neutral)  
+- Provides AI fallback chat responses when no user is available
+
+### Databases
+- PostgreSQL → Users, moods, match history  
+- MongoDB → Chat logs with timestamps
+
+### Real-Time Communication
+- Socket.io manages live chat, user status, and typing indicators
+
+### Deployment & Technology Stack
+- **Frontend:** React, Tailwind CSS, Vercel  
+- **Backend:** Node.js, Express.js, Render / Railway  
+- **Real-Time Engine:** Socket.io  
+- **AI/NLP:** Hugging Face Transformers  
+- **Databases:** PostgreSQL (users, moods), MongoDB (chat logs)
+
+</details>
+
+<details>
+<summary>3.0 System Component Description</summary>
+
+**Frontend (React)**  
+- UI for anonymous login, mood selection, and chat  
+- Sends mood, message, and login data to the backend  
+- Uses WebSockets (Socket.io) for live chat communication  
+
+**Backend (Node.js + Express)**  
+- Main application server  
+- REST APIs:  
+  - `POST /api/auth/login`  
+  - `POST /api/chat/message`  
+  - `GET /api/match`  
+  - `POST /api/sentiment`  
+  - `GET /api/mood/history`  
+- Coordinates user matching and chat sessions  
+
+**AI/NLP Sentiment Analysis**  
+- Processes user messages for sentiment classification  
+- Supports matching logic (e.g., sad ↔ happy)  
+- Provides fallback AI responses if no user match exists  
+
+**Databases**  
+- PostgreSQL: stores user profiles, moods, match history  
+- MongoDB: stores chat messages and timestamps  
+
+**Socket.io Real-Time Engine**  
+- Manages bidirectional communication  
+- Enables instant message delivery and chat session creation
+
+</details>
+
+<details>
+<summary>4.0 Data Flow</summary>
+
+1. User logs in anonymously and selects a mood using emojis.  
+2. Backend records the mood and queues the user for matching.  
+3. Matching system pairs users with opposite or compatible moods.  
+4. If no human partner is available, the user is assigned an AI companion.  
+5. Messages are analyzed using Hugging Face models (with consent).  
+6. Chat logs → MongoDB, Mood & match history → PostgreSQL  
+7. Users can optionally view mood trends using the dashboard feature.
+
+</details>
+
+<details>
+<summary>5.0 System Architecture Diagram (Textual)</summary>
+
+
+
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
