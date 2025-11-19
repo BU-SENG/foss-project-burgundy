@@ -204,7 +204,7 @@ export default function HomePage() {
             icon={<Star size={24} />} 
             label="Premium" 
             isActive={false} 
-            onClick={() => alert('Premium features coming soon!')} 
+            onClick={() => alert('Connect')} 
           />
           
         </div>
