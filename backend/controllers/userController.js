@@ -125,6 +125,48 @@ const sendRequest = catchAsync(async (req, res, next) => {
     });
 });
 
+// GET /user/check-request/:targetId
+const checkRequest = catchAsync(async (req, res, next) => {
+    const db = getDB();
+    const friendRequests = db.collection('friendrequests');
+
+    const senderId = new ObjectId(req.user._id);
+    const receiverId = new ObjectId(req.params.targetId);
+
+    const request = await friendRequests.findOne({
+        senderId,
+        receiverId,
+        status: 'pending'
+    });
+
+    res.status(200).json({
+        requested: !!request
+    });
+});
+
+const cancelRequest = catchAsync(async (req, res, next) => {
+    const db = getDB();
+    const friendRequests = db.collection("friendrequests");
+
+    const senderId = new ObjectId(req.user._id);
+    const receiverId = new ObjectId(req.params.targetId);
+
+    const deleted = await friendRequests.deleteOne({
+        senderId,
+        receiverId,
+        status: "pending",
+    });
+
+    if (!deleted.deletedCount) {
+        return next(new AppError("No pending request found.", 400));
+    }
+
+    res.status(200).json({
+        status: "success",
+        message: "Friend request cancelled.",
+    });
+});
+
 const acceptRequest = catchAsync(async (req, res, next) => {
     const db = getDB();
     const users = db.collection('users');
@@ -230,12 +272,40 @@ const getPendingRequests = catchAsync(async (req, res, next) => {
     });
 });
 
+const getFriends = catchAsync(async (req, res, next) => {
+    const db = getDB();
+
+    const users = db.collection('users');
+    const user = await users.findOne(
+        { _id: new ObjectId(req.user._id) },
+        { projection: { friends: 1 } }
+    );
+
+    if (!user) {
+        return next(new AppError('User not found.', 404));
+    }
+
+    const friendIds = user.friends || [];
+    const friends = await users
+        .find({ _id: { $in: friendIds } }, { projection: { password: 0 } })
+        .toArray();
+
+    res.status(200).json({
+        status: 'success',
+        results: friends.length,
+        data: { friends },
+    });
+})
+
 module.exports = {
     profile,
     selectFeeling,
     getAllUsers,
     sendRequest,
+    checkRequest,
+    cancelRequest,
     acceptRequest,
     rejectRequest,
     getPendingRequests,
+    getFriends,
 }

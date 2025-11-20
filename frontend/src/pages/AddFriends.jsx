@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GetAllUsers } from "../services/userService"; // adjust path
+import { GetAllUsers } from "../services/userService";
+import FriendButton from "../components/FriendBtn";
 import { toast } from "sonner";
 
 export default function AddFriends() {
@@ -19,16 +20,6 @@ export default function AddFriends() {
         }
         fetchUsers();
     }, []);
-
-    const handleSendRequest = async (userId) => {
-        try {
-            // TODO: Connect to backend endpoint to send a friend request
-            console.log("Sending request to:", userId);
-            toast.success("Friend request sent!");
-        } catch (err) {
-            toast.error(err.message || "Failed to send request");
-        }
-    };
 
     if (loading) {
         return (
@@ -63,22 +54,28 @@ export default function AddFriends() {
                                 </th>
                             </tr>
                         </thead>
+
                         <tbody className="divide-y divide-gray-700">
                             {users.map((user) => (
                                 <tr key={user._id} className="hover:bg-gray-700 transition-colors">
-                                    <td className="px-6 py-4 whitespace-nowrap font-semibold">{user.username}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-gray-400">{user.email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-indigo-400">{user.feeling}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-center">
-                                        <button
-                                            onClick={() => handleSendRequest(user._id)}
-                                            className="px-3 py-1 cursor-pointer bg-indigo-600 hover:bg-indigo-500 text-white text-sm rounded-lg transition"
-                                        >
-                                            Send Request
-                                        </button>
+                                    <td className="px-6 py-4 whitespace-nowrap font-semibold">
+                                        {user.username}
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-nowrap text-gray-400">
+                                        {user.email}
+                                    </td>
+
+                                    <td className="px-6 py-4 whitespace-nowrap text-indigo-400">
+                                        {user.feeling}
+                                    </td>
+
+                                    <td className="px-6 py-4 text-center">
+                                        <FriendButton targetId={user._id} />
                                     </td>
                                 </tr>
                             ))}
+
                         </tbody>
                     </table>
                 </div>
