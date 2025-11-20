@@ -40,3 +40,23 @@ export async function updateFeeling(feeling) {
         throw new Error(error.message || "Network error.");
     }
 }
+
+export async function GetAllUsers() {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) throw new Error("No token found.");
+
+        const response = await api.get(
+            "/user/all",
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        // Make sure it returns an array
+        return response.data.data.users || [];
+    } catch (error) {
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message || "Failed to get all users");
+        }
+        throw new Error(error.message || "Network error.");
+    }
+}

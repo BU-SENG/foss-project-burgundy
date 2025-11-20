@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, UserPlus, MessageCircle, Star, Smile } from "lucide-react";
+import { Users, UserPlus, MessageCircle, Smile } from "lucide-react";
 import { getUser } from "../services/userService";
 import { toast } from "sonner";
 
@@ -67,7 +67,7 @@ export default function BottomNav() {
                 </div>
 
                 <NavItem icon={<MessageCircle size={24} />} label="Chats" onClick={() => navigate("/")} />
-                <NavItem icon={<Star size={24} />} label="Premium" onClick={() => alert("Connect")} />
+                <NavItem icon={<Users size={24} />} label="Add Friends" onClick={() => navigate("/add-friends")} />
             </div>
         </nav>
     );

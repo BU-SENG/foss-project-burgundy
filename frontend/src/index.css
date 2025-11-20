@@ -1,1 +1,15 @@
 @import "tailwindcss";
+/* index.css */
+
+/* Import custom font */
+@import url('https://fonts.cdnfonts.com/css/mona-sans');
+
+/* Apply globally */
+html, body {
+  font-family: 'Mona-Sans', sans-serif;
+}
+
+/* Optional utility class */
+.pry-ff {
+  font-family: 'Mona-Sans', sans-serif;
+}
