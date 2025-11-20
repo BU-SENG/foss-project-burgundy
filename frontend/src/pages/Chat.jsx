@@ -16,6 +16,7 @@ export default function Chat() {
 
         setSending(true);
         try {
+            // fixed: matches backend { message, receiver }
             const chat = await SendChat(newMessage, receiverId);
             setMessages((prev) => [...prev, chat]);
             setNewMessage("");
@@ -48,7 +49,9 @@ export default function Chat() {
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}
-                        className={`p-2 rounded ${msg.sender === receiverId ? "bg-gray-700 self-start" : "bg-sky-500 self-end"
+                        className={`p-2 rounded ${msg.sender === receiverId
+                                ? "bg-gray-700 self-start"
+                                : "bg-sky-500 self-end"
                             } max-w-xs`}
                     >
                         {msg.message}
