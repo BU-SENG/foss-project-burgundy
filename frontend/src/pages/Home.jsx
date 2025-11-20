@@ -29,7 +29,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#120F22] text-white relative overflow-hidden font-sans">
+    <div className="min-h-screen w-full flex flex-col bg-[#120F22] text-white relative overflow-hidden pry-ff">
       <Header user={user} />
 
       <main className="flex-1 overflow-y-auto z-10 pb-24 pt-2 px-6">
