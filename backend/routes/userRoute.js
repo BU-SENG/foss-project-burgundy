@@ -1,8 +1,9 @@
 const Router = require('express');
-const { selectFeeling, getAllUsers, sendRequest, acceptRequest, rejectRequest, getPendingRequests } = require('../controllers/userController');
+const { selectFeeling, getAllUsers, sendRequest, acceptRequest, rejectRequest, getPendingRequests, profile } = require('../controllers/userController');
 const protectUser = require('../middleware/protectUser');
 const router = Router();
 
+router.get('/profile', protectUser, profile);
 router.post('/select-feeling', protectUser, selectFeeling);
 router.get('/all', protectUser, getAllUsers);
 router.post('/send-request/:targetId', protectUser, sendRequest);
