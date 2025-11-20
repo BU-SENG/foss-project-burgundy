@@ -104,7 +104,7 @@ export default function EmpathyBuddyLogin() {
           <div className="text-center pt-4">
             <p className="text-gray-400">
               Dont have an account?{' '}
-              <a href="#" className="text-[#4F46E5] hover:text-[#6366F1] font-semibold">
+              <a href="/register" className="text-[#4F46E5] hover:text-[#6366F1] font-semibold">
                 Sign up
               </a>
             </p>
