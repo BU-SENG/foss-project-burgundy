@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import MoodDashboard from "./pages/MoodDashboard";
 import Login from "./pages/Login";
 import AddFriends from "./pages/AddFriends";
+import Chat from "./pages/Chat";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/friends" element={<FriendsList />} />
           <Route path="/requests" element={<FriendRequests />} />
           <Route path="/add-friends" element={<AddFriends />} />
+          <Route path="/chat" element={<Chat />} />
         </Route>
       </Routes>
     </Router>
