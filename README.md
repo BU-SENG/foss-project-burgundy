@@ -176,3 +176,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more info.
+
+**6.0 Assumptions and Dependencies**
+
+**6.1 Assumptions**
+
+- Users have stable internet access to enable real-time mood matching and messaging.
+- Users will interact respectfully and provide honest emotional inputs for accurate matching.
+- The application will operate within established ethical AI guidelines and comply with all relevant privacy and data-protection standards.
+- Users consent to anonymous mood sharing for the purpose of emotional matching.
+- Users have basic digital literacy to navigate emoji selection, chat interfaces, and conversation controls.
+
+**6.2 Dependencies**
+
+- AI-generated responses depend on the availability, reliability, and performance of the Gemini API.
+- The system requires cloud-based backend infrastructure for user matching, real-time messaging, and temporary data storage.
+- The application depends on secure encryption libraries to protect all user messages and interactions.
+- The app relies on mobile device services (iOS/Android) for notifications, permissions, and compatibility.
+- The mood-matching feature depends on a predefined emoji-to-emotion classification framework.
